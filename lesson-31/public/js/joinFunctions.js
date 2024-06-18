@@ -13,14 +13,20 @@ $(document).ready(() => {
   const socket = io();
 
   $("#chat-form").submit(() => {
-    let text = $("#chat-input").val(); // Lesson 31.1 (p. 450)
-    let userId = $("#chat-user-id").val(); // Lesson 31.4 (p. 452)
-    let userFullName = $("#chat-user-full-name").val(); // Lesson 31.7 (p. 455)
+    // Lesson 31.1 (p. 450)
+    // Lesson 31.4 (p. 452)
+    // Lesson 31.7 (p. 455)
+    let text = $("#chat-input").val();
+    let userId = $("#chat-user-id").val();
+    let userFullName = $("#chat-user-full-name").val();
     let username = $("#chat-username").val();
     socket.emit("message", {
-      content: text, // Lesson 31.1 (p. 450)
-      userId: userId, // Lesson 31.4 (p. 452)
-      fullName: userFullName, // Lesson 31.7 (p. 455)
+      // Lesson 31.1 (p. 450)
+      // Lesson 31.4 (p. 452)
+      // Lesson 31.7 (p. 455)
+      content: text,
+      userId: userId,
+      fullName: userFullName,
       username: username,
     });
     $("#chat-input").val("");
@@ -28,23 +34,17 @@ $(document).ready(() => {
   });
 
   /**
-   * Listing 32.3 (p. 467)
-   * 메시지 수신 시 채팅 아이콘 애니메이팅
-   */
-
-  /**
-   * Listing 32.2 (p. 465)
-   * 사용자 접속이 끊겼을 때 메시지 출력
-   */
-
-  /**
    * Listing 31.12 (p. 460)
    * 최근 메시지 표시
    */
-  socket.on("load all messages", (data) => {
-    data.forEach((message) => {
-      displayMessage(message);
+  socket.on("load all messages", data => {
+    data.forEach(msg => {
+      displayMessage(msg);
     });
+  });
+
+  socket.on("message", (message) => {
+    displayMessage(message);
   });
 
   $("#modal-button").click(() => {
@@ -168,4 +168,4 @@ let displayMessage = (message) => {
 let getCurrentUserClass = (id) => {
   let userId = $("#chat-user-id").val();
   return userId === id ? "current-user" : "";
-};
+}
